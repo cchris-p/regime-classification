@@ -1,3 +1,4 @@
 *.pyc
 data/yields
-data/dataset_*.csv
+data/dataset_*.csvdata/
+*.csv

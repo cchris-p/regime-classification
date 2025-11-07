@@ -1,0 +1,34 @@
+data
+├── allnews.csv
+├── core_cpi_yoy_COICOP
+│   ├── CAN_core_cpi_yoy_2018 Core_from_2010.csv
+│   ├── CAN_core_cpi_yoy_2018_from_2010.csv
+│   ├── CHE_core_cpi_yoy_1999 Core_from_2010.csv
+│   ├── CHE_core_cpi_yoy_1999_from_2010.csv
+│   ├── G7xEUR_core_cpi_yoy_from_2010_wide.csv
+│   ├── GBR_core_cpi_yoy_1999 Core_from_2010.csv
+│   ├── GBR_core_cpi_yoy_1999_from_2010.csv
+│   ├── JPN_core_cpi_yoy_2018 Core_from_2010.csv
+│   ├── JPN_core_cpi_yoy_2018_from_2010.csv
+│   ├── USA_core_cpi_yoy_1999 Core_from_2010.csv
+│   └── USA_core_cpi_yoy_1999_from_2010.csv
+├── dataset_2025-10-03T01_22_51.521947779Z_DEFAULT_INTEGRATION_IMF.STA_MFS_IR_8.0.1.csv
+├── dataset_2025-10-03T03_18_38.847248048Z_DEFAULT_INTEGRATION_IMF.STA_CPI_5.0.0.csv
+└── yields
+    ├── clean
+    │   ├── au_2y_yields_clean.csv
+    │   ├── ca_2y_yields_clean.csv
+    │   ├── eu_2y_yields_clean.csv
+    │   ├── jpy_2y_yields_clean.csv
+    │   ├── nz_2y_yields_clean.csv
+    │   └── us_2y_yields_clean.csv
+    └── unclean
+        ├── au_yields.csv
+        ├── ca_yields.csv
+        ├── eu_yields.csv
+        ├── jpy_yields.csv
+        ├── nz_yields-1985-2017-csv.csv
+        ├── nz_yields.csv
+        └── us_2y_yields.csv
+
+4 directories, 27 files

@@ -12,6 +12,7 @@ from typing import Dict, List, Optional
 
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
+from matplotlib.patches import Patch
 import pandas as pd
 
 
@@ -189,6 +190,25 @@ def plot_regime_candles(
                 reg_series.index[-1],
                 color=palette.get(current_reg, "0.9"),
                 alpha=0.12,
+            )
+
+        # Legend mapping regime label -> shading color
+        handles = [
+            Patch(
+                facecolor=palette.get(reg, "0.9"),
+                edgecolor="none",
+                alpha=0.4,
+                label=reg,
+            )
+            for reg in unique_regimes
+        ]
+        if handles:
+            ax.legend(
+                handles=handles,
+                title="Final regimes",
+                loc="upper left",
+                bbox_to_anchor=(1.01, 1.0),
+                borderaxespad=0.0,
             )
 
     ax.set_title(f"{symbol} with regimes ({start_date} to {end_date})")

@@ -2,3 +2,6 @@
 data/yields
 data/dataset_*.csvdata/
 *.csv
+
+exports/
+logs/

@@ -108,6 +108,8 @@ EURNZD_cpi_diff_core = cpi_diff_core(eur_cpi, nzd_cpi)  # EUR - NZD (synthetic-s
 AUDJPY_cpi_diff_core = cpi_diff_core(aus_cpi, jpn_cpi)  # AUD - JPY (synthetic-actual)
 NZDJPY_cpi_diff_core = cpi_diff_core(nzd_cpi, jpn_cpi)  # NZD - JPY (synthetic-actual)
 AUDNZD_cpi_diff_core = cpi_diff_core(aus_cpi, nzd_cpi)  # AUD - NZD (synthetic-synthetic)
+EURCAD_cpi_diff_core = cpi_diff_core(eur_cpi, can_cpi)  # EUR - CAD (synthetic-actual)
+EURCHF_cpi_diff_core = cpi_diff_core(eur_cpi, che_cpi)  # EUR - CHF (synthetic-actual)
 
 # Additional cross pairs (with available data)
 GBPJPY_cpi_diff_core = cpi_diff_core(gbr_cpi, jpn_cpi)  # GBP - JPY
@@ -148,6 +150,8 @@ EURNZD_cpi_diff_core_daily = expand_to_daily_month_end(EURNZD_cpi_diff_core)
 AUDJPY_cpi_diff_core_daily = expand_to_daily_month_end(AUDJPY_cpi_diff_core)
 NZDJPY_cpi_diff_core_daily = expand_to_daily_month_end(NZDJPY_cpi_diff_core)
 AUDNZD_cpi_diff_core_daily = expand_to_daily_month_end(AUDNZD_cpi_diff_core)
+EURCAD_cpi_diff_core_daily = expand_to_daily_month_end(EURCAD_cpi_diff_core)
+EURCHF_cpi_diff_core_daily = expand_to_daily_month_end(EURCHF_cpi_diff_core)
 
 # Combined daily DataFrame
 cpi_diff_core_daily_df = (

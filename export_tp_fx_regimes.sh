@@ -5,7 +5,11 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
-echo "Generating FX regime CSV exports for EURUSD, AUDUSD, USDJPY..."
+# Live LTR universe: TPIV v1.01 (AUDUSD/NZDUSD) + MHAL v1.02
+# (NZDUSD/EURCAD/EURCHF). The original EURUSD/USDJPY exports are retained.
+SYMBOLS="${REGIME_EXPORT_SYMBOLS:-EURUSD AUDUSD USDJPY NZDUSD EURCAD EURCHF}"
+
+echo "Generating FX regime CSV exports for: ${SYMBOLS}"
 
 python - <<'PY'
 import importlib.util
@@ -13,7 +17,9 @@ import os
 import sys
 from pathlib import Path
 
-os.environ["FIRSTRATEDATA_ROOT"] = "/home/matrillo/apps/jupyter-notebooks/histdata/firstratedata"
+os.environ.setdefault(
+    "FIRSTRATEDATA_ROOT", "/home/matrillo/apps/jupyter-notebooks/histdata/firstratedata"
+)
 
 repo = Path('/home/matrillo/apps/regime-classification')
 sys.path.insert(0, str(repo))
@@ -24,7 +30,9 @@ mod = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(mod)
 
 export_dir = repo / 'exports' / 'forex'
-symbols = ['EURUSD', 'AUDUSD', 'USDJPY']
+symbols = os.environ.get(
+    "REGIME_EXPORT_SYMBOLS", "EURUSD AUDUSD USDJPY NZDUSD EURCAD EURCHF"
+).split()
 
 for symbol in symbols:
     out_path = mod.build_regime_dataset_for_symbol(symbol, str(export_dir))
@@ -33,6 +41,6 @@ PY
 
 echo
 echo "Done. Expected files:"
-echo "  /home/matrillo/apps/regime-classification/exports/forex/EURUSD_regime_ohlcv.csv"
-echo "  /home/matrillo/apps/regime-classification/exports/forex/AUDUSD_regime_ohlcv.csv"
-echo "  /home/matrillo/apps/regime-classification/exports/forex/USDJPY_regime_ohlcv.csv"
+for s in ${SYMBOLS}; do
+  echo "  ${SCRIPT_DIR}/exports/forex/${s}_regime_ohlcv.csv"
+done

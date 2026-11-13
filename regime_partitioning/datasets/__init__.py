@@ -7,6 +7,8 @@ from .rate_diff_2y import (
     USDJPY_rate_diff_2y,
     AUDUSD_rate_diff_2y,
     NZDUSD_rate_diff_2y,
+    EURCAD_rate_diff_2y,
+    EURCHF_rate_diff_2y,
     EURJPY_rate_diff_2y,
     EURAUD_rate_diff_2y,
     EURNZD_rate_diff_2y,
@@ -20,6 +22,8 @@ from .cpi_diff_core import (
     USDJPY_cpi_diff_core_daily,
     AUDUSD_cpi_diff_core_daily,
     NZDUSD_cpi_diff_core_daily,
+    EURCAD_cpi_diff_core_daily,
+    EURCHF_cpi_diff_core_daily,
     EURJPY_cpi_diff_core_daily,
     EURAUD_cpi_diff_core_daily,
     EURNZD_cpi_diff_core_daily,
@@ -90,6 +94,26 @@ NZDUSD_fx = NZDUSD_fx.join(
 )
 NZDUSD_dataset = {"symbol": "NZDUSD", "df_fx": NZDUSD_fx.dropna()}
 
+# EURCAD
+EURCAD_fx = create_fx_dataset_for_pair("EURCAD")
+EURCAD_fx = EURCAD_fx.join(EURCAD_rate_diff_2y.rename("rate_diff_2y"), how="left")
+EURCAD_fx = EURCAD_fx.join(
+    EURCAD_cpi_diff_core_daily.rename("cpi_diff_core"), how="left"
+)
+EURCAD_dataset = {"symbol": "EURCAD", "df_fx": EURCAD_fx.dropna()}
+
+# EURCHF
+# No cleaned CHF 2Y yield exists, so rate_diff_2y is recorded unavailable
+# (NaN) rather than fabricated. The dataset keeps rows with a valid CPI
+# differential so vol_state and macro_cpi_state remain usable.
+EURCHF_fx = create_fx_dataset_for_pair("EURCHF")
+EURCHF_fx["rate_diff_2y"] = float("nan")
+EURCHF_fx = EURCHF_fx.join(
+    EURCHF_cpi_diff_core_daily.rename("cpi_diff_core"), how="left"
+)
+EURCHF_fx = EURCHF_fx.dropna(subset=["ret", "rv_20d", "cpi_diff_core"])
+EURCHF_dataset = {"symbol": "EURCHF", "df_fx": EURCHF_fx}
+
 # EURJPY
 EURJPY_fx = create_fx_dataset_for_pair("EURJPY")
 EURJPY_fx = EURJPY_fx.join(EURJPY_rate_diff_2y.rename("rate_diff_2y"), how="left")
@@ -144,6 +168,8 @@ fx_datasets = {
     "USDJPY": USDJPY_dataset,
     "AUDUSD": AUDUSD_dataset,
     "NZDUSD": NZDUSD_dataset,
+    "EURCAD": EURCAD_dataset,
+    "EURCHF": EURCHF_dataset,
     "EURJPY": EURJPY_dataset,
     "EURAUD": EURAUD_dataset,
     "EURNZD": EURNZD_dataset,

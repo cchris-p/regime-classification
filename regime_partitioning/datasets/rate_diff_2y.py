@@ -22,6 +22,7 @@ eur_2y_yield = pd.read_csv("data/yields/clean/eu_2y_yields_clean.csv", parse_dat
 jpy_2y_yield = pd.read_csv("data/yields/clean/jpy_2y_yields_clean.csv", parse_dates=["date"]).sort_values("date")
 aus_2y_yield = pd.read_csv("data/yields/clean/au_2y_yields_clean.csv", parse_dates=["date"]).sort_values("date")
 nz_2y_yield = pd.read_csv("data/yields/clean/nz_2y_yields_clean.csv", parse_dates=["date"]).sort_values("date")
+ca_2y_yield = pd.read_csv("data/yields/clean/ca_2y_yields_clean.csv", parse_dates=["date"]).sort_values("date")
 
 # Explicit rate differential Series for available FX majors/minors (BASE - QUOTE)
 # Majors
@@ -29,6 +30,10 @@ EURUSD_rate_diff_2y = rate_diff_2y(eur_2y_yield, usd_2y_yield)
 USDJPY_rate_diff_2y = rate_diff_2y(usd_2y_yield, jpy_2y_yield)
 AUDUSD_rate_diff_2y = rate_diff_2y(aus_2y_yield, usd_2y_yield)
 NZDUSD_rate_diff_2y = rate_diff_2y(nz_2y_yield, usd_2y_yield)
+EURCAD_rate_diff_2y = rate_diff_2y(eur_2y_yield, ca_2y_yield)
+# EURCHF: no cleaned CHF 2Y yield exists in the repo; the export records the
+# macro_yield_state as unavailable rather than fabricating a series.
+EURCHF_rate_diff_2y = None
 
 # Minors
 EURJPY_rate_diff_2y = rate_diff_2y(eur_2y_yield, jpy_2y_yield)
